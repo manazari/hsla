@@ -74,7 +74,7 @@ func hslaModel(c color.Color) color.Color {
 
 	switch max {
 	case rFloat:
-		hue = (gFloat-bFloat)/delta + 0
+		hue = (gFloat-bFloat)/delta + math.Mod(hue, 6)
 	case gFloat:
 		hue = (bFloat-rFloat)/delta + 2
 	case bFloat:
@@ -87,11 +87,7 @@ func hslaModel(c color.Color) color.Color {
 		saturation = delta / (max + min)
 	}
 
-	if hue *= 60; hue < 360 {
-		hue += 360
-	}
-
-	h, s, l := hue, saturation, lightness
+	h, s, l := hue*60, saturation, lightness
 	return HSLA{h, s, l, aFloat}
 }
 
