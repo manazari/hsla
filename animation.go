@@ -8,12 +8,12 @@ import (
 //
 type AnimatedColor struct {
 	color.Color
-	updateFunc func(color.Color) color.Color
+	updateFunc func()
 	paused     bool
 }
 
 //
-func NewAnimatedColor(c color.Color, updateFunc func(color.Color) color.Color) AnimatedColor {
+func NewAnimatedColor(c color.Color, updateFunc func()) AnimatedColor {
 	return AnimatedColor{c, updateFunc, false}
 }
 
@@ -24,7 +24,7 @@ func (c *AnimatedColor) Start() {
 	}
 	go func() {
 		for range time.Tick(time.Millisecond * 60) {
-			c.updateFunc(c)
+			c.updateFunc()
 			if c.IsPaused() {
 				break
 			}
