@@ -1,4 +1,4 @@
-package hsl
+package hsla
 
 import (
 	"fmt"
